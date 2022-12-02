@@ -16,8 +16,11 @@ class Gusano(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("Imagenes/gusano.png").convert()
-        self.rect = self.image.get_rect()
+        gusano = pygame.image.load("Imagenes/gusano.png").convert()
+        self.gusano = gusano
+        self.angulo = 0
+        self.image = pygame.transform.rotate(self.gusano, self.angulo)
+        self.rect = self.gusano.get_rect(center =(12.5,74))
         self.rect.centerx = ancho/2
         self.rect.centery = alto/2
         self.corazones = True
@@ -29,16 +32,20 @@ class Gusano(pygame.sprite.Sprite):
         # Al iniciar el movimiento, este no para, solo puede cambiar direccion
         direccion_tecla = pygame.key.get_pressed()
         if direccion_tecla[pygame.K_UP]:
+            self.angulo = 0
             self.velocidad_x = 0
-            self.velocidad_y = -1
+            self.velocidad_y = -2
         if direccion_tecla[pygame.K_DOWN]:
+            self.angulo = 180
             self.velocidad_x = 0
-            self.velocidad_y = 1
-        self.rect.y += self.velocidad_y
+            self.velocidad_y = 2
+
         if direccion_tecla[pygame.K_RIGHT]:
+            self.angulo = -90
             self.velocidad_x = 2
-            self.velocidad_y = -0
+            self.velocidad_y = 0
         if direccion_tecla[pygame.K_LEFT]:
+            self.angulo = 90
             self.velocidad_x = -2
             self.velocidad_y = 0
 
@@ -46,26 +53,27 @@ class Gusano(pygame.sprite.Sprite):
         if direccion_tecla[pygame.K_UP] and direccion_tecla[pygame.K_RIGHT] \
            or direccion_tecla[pygame.K_UP] and direccion_tecla[pygame.K_LEFT]:
             self.velocidad_x = 0
-            self.velocidad_y = -1
+            self.velocidad_y = -2
         if (direccion_tecla[pygame.K_DOWN] and direccion_tecla[pygame.K_RIGHT]
            or direccion_tecla[pygame.K_DOWN] and
            direccion_tecla[pygame.K_LEFT]):
             self.velocidad_x = 0
-            self.velocidad_y = 1
+            self.velocidad_y = 2
 
         # velocidad del gusano actualizada
         self.rect.y += self.velocidad_y
         self.rect.x += self.velocidad_x
-
+        self.image = pygame.transform.rotate(self.gusano, self.angulo)
         # limites de movimiento con respecto a la ventana
-        if self.rect.left < 0:
-            self.rect.left = 0
+        if self.rect.left < 10:
+            self.rect.left = 10
         if self.rect.right > ancho:
             self.rect.right = ancho
         if self.rect.bottom > alto:
             self.rect.bottom = alto
         if self.rect.top < 0:
             self.rect.top = 0
+
 
 
 def space():
