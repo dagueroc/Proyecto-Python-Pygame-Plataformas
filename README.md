@@ -8,6 +8,10 @@ jugador se encargara de obtener puntos mientras esquiva diferentes obstaculos.
 El problema principal del desarrollo fue el cuerpo del jugador, que no pudo ser realizado satisfactoriamente. Por esa
 razon, solo aparece la cabeza del gusano espacial en el juego.
 
+
+**Ejecutar el .py con el comando:** 
+python3 spaceworm.py
+
 Creditos por los efectos de sonido y musica:
 
 Musica de fondo:
